@@ -1,0 +1,65 @@
+==================================================================
+https://keybase.io/meekohi
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://meekohi.com
+  * I am meekohi (https://keybase.io/meekohi) on keybase.
+  * I have a public key with fingerprint E652 7C33 B864 6056 5299  D1A2 D73E ED09 D0EB AD2A
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "e6527c33b86460565299d1a2d73eed09d0ebad2a",
+            "host": "keybase.io",
+            "key_id": "d73eed09d0ebad2a",
+            "uid": "429e926810f24bca74cecd0bb1431900",
+            "username": "meekohi"
+        },
+        "service": {
+            "hostname": "meekohi.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1411052499,
+    "expire_in": 157680000,
+    "prev": "bc09e6fce4d1ce099b037ec98118ff2d15875822ad152378d54674de8a448dd0",
+    "seqno": 4,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v1.0.5
+Comment: https://keybase.io/crypto
+
+yMHmAnicO8LLzMDFaObwYGqnpu8ZxtMH3pcyhEh9vlytlJSfUqlkVa2UnQqm0jLz
+0lOLCooy80qUrJRSzUyNzJONjZMszEzMDEyBPEvLFMNEoxRz49TUFAPLFIPUpMQU
+o0QlHaWM/GKQDqAxSYnFqXqZ+UAxICc+MwUoikV9KVjCxMgy1dLIzMLQIM3IJCk5
+0dwkOTU5xSApydDE2NDSwACksDi1KC8xNxWoOjc1NTs/I1OpVkcJKFiWmZwKcjLI
+ZlQFesn5uUCdBUX5JfnJ+TlAiYySkgIrkL6SygKQwvLUpHioEfFJmXkpQF8DNZSl
+FhVn5ucpWRkCVSaXZILMNDQxNDQwNTKxtNRRSq0oyCxKjc8EqTA1N7MwAAKQNall
+QCOTkg0sU83SklNNUgyTUw0sLZMMjM1Tky0tDA0t0tKMUgxNLcxNLYyMEoEsI2Nz
+ixRTEzNzk5RUi0QTE4uUFJBXi1ML8/KVrEyAzkxMBxpZnJmel1hSWpSqVHvoQAwL
+AyMXAxsrEyjeGLg4BWCxGbyW/X+hNIvh7uO3Gp9o8L+9+viRS1zQj8/Nk3Y/z7p0
+Lbz/8VGXtz9T+Q52tl04kKTOvTViWkLj31D5jwfOuF/5yTd9hoDBNB+Hhov687uz
+Zq0wSG3Yu+b9u2uim/4I1KYejS0u3b3jYXmr6ZEizTe1bGF2GS/v5s476vFJO1Xh
+ZQW3n/fplzf6vdcnHKqVUbH8ZXXH5zrLwe2n3ydff26TGMz6rGLhvldH9Hda3rwU
+08SRwMGzdcuS0q/HTh7daZj8Qu7P9561GzZw3u9vOSy7uXeu3p6w7uAjJ7WzJk9a
+LLrK7RKLI8eJB6+9TTReFdgXWh7+dvyW4ImNL9e+zFjYczlT81tw6d7muZNXujNV
+7q/8BgCjKiBv
+=sQLm
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/meekohi
+
+==================================================================

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>A Photometric Approach for Estimating Normals and Tangents - Michael Holroyd</title>
+  <meta name="description" content="This paper presents a novel technique for acquiring the shape of real-world objects with complex isotropic and anisotropic reflectance.">
+  <meta charset="utf-8" />
+  <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <style>
+  .pdfthumb {
+  	border: 1px solid lightgrey;
+  }
+  </style>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26351136-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</head>
+<body style="margin-top:80px; margin-bottom:80px;">
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner" style="padding-left:20px;">
+    <a class="brand" href="../">Meekohi</a>
+    <ul class="nav nav-pills">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#publications">Publications</a></li>
+      <li><a href="../index.html#other">Other</a></li>
+    </ul>
+  </div>
+</div>
+
+<div>
+<header class="jumbotron subhead" style='text-align:center;'>
+<h1>A Photometric Approach for Estimating Normals and Tangents</h1>
+<table style='margin:auto;' cellpadding=15><tr>
+<td>Michael Holroyd<br />University of Virginia</td>
+<td>Jason Lawrence<br />University of Virginia</td>
+<td>Greg Humphreys<br />University of Virginia</td>
+<td>Todd Zickler<br />Harvard University</td>
+</tr></table>
+
+</header>
+</div>
+
+  <div class="container">
+  	<div class="row-fluid" id="about" style="margin-top:20px;">
+  		<div class='span12' style='text-align:center;'>
+  			<img src='teaser.jpg' />
+  		</div>
+  	</div>
+
+    <div class="row-fluid" style="margin-top:20px;">
+      <div class="span12">
+      	<h3>Abstract:</h3>
+		    This paper presents a novel technique for acquiring the shape of real-world objects with complex isotropic and anisotropic reflectance. Our method estimates the local normal and tangent vectors at each pixel in a reference view from a sequence of images taken under varying point lighting. We show that for many real-world materials and a restricted set of light positions, the 2D slice of the BRDF obtained by fixing the local view direction is symmetric under reflections of the halfway vector across the normal-tangent and normal-binormal planes. Based on this analysis, we develop an optimization that estimates the local surface frame by identifying these planes of symmetry in the measured BRDF. As with other photometric methods, a key benefit of our approach is that the input is easy to acquire and is less sensitive to calibration errors than stereo or multi-view techniques. Unlike prior work, our approach allows estimating the surface tangent in the case of anisotropic reflectance. We confirm the accuracy and reliability of our approach with analytic and measured data, present several normal and tangent fields acquired with our technique, and demonstrate applications to image relighting and appearance editing.
+		    <br/><br/>
+
+    		<h3>Documents:</h3>
+
+    		<div class="media">
+    		  <a class="pull-left" href="Holroyd08.pdf">
+    		    <img class="media-object pdfthumb" src="Holroyd08_thumb.png">
+    		  </a>
+    		  <div class="media-body">
+    		    <h4 class="media-heading"><a href="Holroyd08.pdf">A Photometric Approach for Estimating Normals and Tangents</a></h4>
+    		    <pre>
+@article{Holroyd08,
+    author  = {Michael Holroyd and Jason Lawrence and Greg Humphreys and Todd Zickler},
+    title   = {A Photometric Approach for Estimating Normals and Tangents},
+    journal = {ACM Transactions on Graphics (Proceedings of SIGGRAPH Asia 2008)},
+    year    = {2008},
+    volume  = {27},
+    number  = {5}
+}</pre>
+  		    </div>
+  		  </div>
+
+    </div>
+		<div class="row-fluid" style="margin-top:20px;">
+      <div class='span12'>
+
+    		<h3>Data:</h3>
+
+        Each dataset includes an ascii *.header file with the following format:<br /><br />
+
+        <pre>
+1512
+light1_x light1_y light1_z
+light2_x light2_y light2_z
+...
+light1512_x light1512_y light1512_z</pre>
+        <br />
+
+        The *.dat file is a binary file of (1512 x 1024 x 1024) 32-bit floating point numbers. This file stores the acquired monochromatic images in <i>pixel order</i> to make reading more efficient. In other words, the first values in the file are <code>[pixel 0,0 with light1] [pixel 0,0 with light2] ...</code>, and to recover a full image illuminated by <code>light1</code> you would use every 1512th value. <br /><br />
+        Notes:
+        <ul>
+        <li>Lightsource positions are not normalized</li>
+        <li>On 32-bit systems <code>fseek()</code> might fail for files this large.</li>
+        </ul>
+        <br />
+        We have also included our results from the paper for comparison in *.n and *.t files below. These are binary files with (3 x 1024 x 1024) 32-bit floating point numbers in each, ordered <code>x1 y1 z1 x2 y2 z2 ...</code>
+
+      </div>
+    </div>
+    <br/>
+    <div class="row-fluid">
+      <div class='span4'>
+        <img src="frog/reference.png" width='256px'/><br />
+        <a href="https://s3.amazonaws.com/meekohi.com/Holroyd08/frog2.header">frog2.header</a><br />
+        <a href="https://s3.amazonaws.com/meekohi.com/Holroyd08/frog2.dat3">frog2.dat3</a> (1.9 GB)
+      </div>
+      <div class='span4'>
+        <img src='frog/normals.png' width='256px'/><br />
+        <a href="https://s3.amazonaws.com/meekohi.com/Holroyd08/frog2.n">frog2.n</a>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class='span4'>
+        <img src="red_vase/reference.png" width='256px'/><br />
+        <a href='https://s3.amazonaws.com/meekohi.com/Holroyd08/vase2.header'>vase2.header</a><br />
+        <a href='https://s3.amazonaws.com/meekohi.com/Holroyd08/vase2.dat3'>vase2.dat3</a> (1.9 GB)
+      </div>
+      <div class='span4'>
+        <img src='red_vase/normals.png' width='256px'/><br />
+        <a href="https://s3.amazonaws.com/meekohi.com/Holroyd08/vase2.n">vase2.n</a>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class='span4'>
+        <img src="bronze_vase/reference.png" width='256px'/><br />
+        <a href='https://s3.amazonaws.com/meekohi.com/Holroyd08/pot2.header'>pot2.header</a><br />
+        <a href='https://s3.amazonaws.com/meekohi.com/Holroyd08/pot2.dat3'>pot2.dat3</a> (1.9 GB)
+      </div>
+      <div class='span4'>
+        <img src='bronze_vase/normals.png' width='256px'/><br />
+        <a href="https://s3.amazonaws.com/meekohi.com/Holroyd08/pot2.n">pot2.n</a>
+      </div>
+      <div class='span4'>
+        <img src='bronze_vase/tangents.png' width='256px'/><br />
+        <a href="https://s3.amazonaws.com/meekohi.com/Holroyd08/pot2.t">pot2.t</a>
+      </div>
+    </div>
+        <div class="row-fluid">
+      <div class='span4'>
+        <img src="french_press/reference.png" width='256px'/><br />
+        <a href='https://s3.amazonaws.com/meekohi.com/Holroyd08/fpress.header'>fpress.header</a><br />
+        <a href='https://s3.amazonaws.com/meekohi.com/Holroyd08/fpress.dat3'>fpress.dat3</a> (1.9 GB)
+      </div>
+      <div class='span4'>
+        <img src='french_press/normals.png' width='256px'/><br />
+        <a href="https://s3.amazonaws.com/meekohi.com/Holroyd08/fpress.n">fpress.n</a>
+      </div>
+      <div class='span4'>
+        <img src='french_press/tangents.png' width='256px'/><br />
+        <a href="https://s3.amazonaws.com/meekohi.com/Holroyd08/fpress.t">fpress.t</a>
+      </div>
+    </div>
+      
+  </div>
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

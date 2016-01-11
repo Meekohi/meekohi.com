@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html class="ocks-org do-not-copy">
+<meta charset="utf-8">
+<title>Computer Science Professors</title>
+<style>
+
+@import url(style.css);
+
+#chart {
+  height: 500px;
+}
+
+.node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .2;
+}
+
+.link:hover {
+  stroke-opacity: .5;
+}
+
+</style>
+<body>
+
+<header>
+  <aside>April 24, 2014</aside>
+  <a href="http://meekohi.com" rel="author">Michael Holroyd</a>
+</header>
+
+<h1 style='margin:0;'>Computer Science Professors</h1>
+<h3 style='margin:0;'>
+  Undergrad -> Graduate School -> Professor<br/>
+  based on <em><a href='http://cs.brown.edu/people/alexpap/faculty_dataset.html'>Dataset of 2200 faculty in 50 top Computer Science Programs</a></em>
+</h3>
+
+<p id="chart">
+
+<script src="http://d3js.org/d3.v2.min.js?2.9.1"></script>
+<script src="sankey.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script>
+
+var margin = {top: 10, right: 20, bottom: 18, left: 10},
+    width = window.innerWidth - margin.left - margin.right,
+    height = 6000 - margin.top - margin.bottom;
+
+var format = function(d) { return d; },
+    color = d3.scale.category20();
+
+var svg = d3.select("#chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var sankey = d3.sankey()
+    .nodeWidth(15)
+    .nodePadding(10)
+    .size([width, height]);
+
+var path = sankey.link();
+
+d3.csv("profs.csv", function(profs) {
+
+  //console.dir(profs);
+  var graph = {}
+  graph.links = [];
+
+  var undergrad_univ = _.uniq(_.map(profs,function(prof){ return prof.Bachelors}));
+  var grad_univ = _.uniq(_.map(profs,function(prof){ return prof.Doctorate}));
+  var prof_univ = _.uniq(_.map(profs,function(prof){ return prof.University}));
+  graph.nodes = _.map(undergrad_univ,function(g){ return {name:g};}).concat(
+    _.map(grad_univ,function(g){ return {name:g};}),
+    _.map(prof_univ,function(g){ return {name:g};})
+    );
+
+  var graduate = [];
+  var hired = [];
+  _.each(profs,function(prof){
+    var uidx = _.indexOf(undergrad_univ,prof.Bachelors);
+    var gidx = _.indexOf(grad_univ,prof.Doctorate);
+    var pidx = _.indexOf(prof_univ,prof.University);
+
+    if(typeof graduate[uidx] === "undefined") graduate[uidx] = [];
+    if(typeof hired[gidx] === "undefined") hired[gidx] = [];
+    if(typeof graduate[uidx][gidx] === "undefined") graduate[uidx][gidx] = 0;
+    if(typeof hired[gidx][pidx] === "undefined") hired[gidx][pidx] = 0;
+    graduate[uidx][gidx]++;
+    hired[gidx][pidx]++;
+  })
+
+  _.each(graduate,function(elem,firstidx){
+    _.each(elem,function(v,secondidx){
+      graph.links.push({
+        source:firstidx,
+        target:undergrad_univ.length+secondidx,
+        value:v
+      });
+    })
+  });
+
+  _.each(hired,function(elem,firstidx){
+    _.each(elem,function(v,secondidx){
+      graph.links.push({
+        source:undergrad_univ.length+firstidx,
+        target:undergrad_univ.length+grad_univ.length+secondidx,
+        value:v
+      });
+    })
+  });
+
+  console.dir(graph);
+
+  sankey
+    .nodes(graph.nodes)
+    .links(graph.links)
+    .layout(32);
+
+  for(var i = 0; i < sankey.nodes().length; i++)
+  {
+    var node = sankey.nodes()[i];
+    if(node.value < 2 || node.name.length === 0)
+    {
+      console.log(node);
+      _.each(node.sourceLinks.concat(node.targetLinks),function(link,idx){
+        var idx = _.indexOf(sankey.links(),link);
+        if(idx >= 0) {
+          sankey.links().splice(idx,1);
+        }
+      });
+      sankey.nodes().splice(i,1);
+      i--;
+    }
+  }
+
+  sankey.layout(32);
+
+  var link = svg.append("g").selectAll(".link")
+      .data(graph.links)
+    .enter().append("path")
+      .attr("class", "link")
+      .attr("d", path)
+      .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+      .sort(function(a, b) { return b.dy - a.dy; });
+
+  link.append("title")
+      .text(function(d) { return d.source.name + " → " + d.target.name + "\n" + format(d.value); });
+
+  var node = svg.append("g").selectAll(".node")
+      .data(graph.nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+    .call(d3.behavior.drag()
+      .origin(function(d) { return d; })
+      .on("dragstart", function() { this.parentNode.appendChild(this); })
+      .on("drag", dragmove));
+
+  node.append("rect")
+      .attr("height", function(d) { return d.dy; })
+      .attr("width", sankey.nodeWidth())
+      .style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
+      .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
+    .append("title")
+      .text(function(d) { return d.name + "\n" + format(d.value); });
+
+  node.append("text")
+      .attr("x", -6)
+      .attr("y", function(d) { return d.dy / 2; })
+      .attr("dy", ".35em")
+      .attr("text-anchor", "end")
+      .attr("transform", null)
+      .text(function(d) { return d.name; })
+    .filter(function(d) { return d.x < width / 2; })
+      .attr("x", 6 + sankey.nodeWidth())
+      .attr("text-anchor", "start");
+
+  function dragmove(d) {
+    d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
+    sankey.relayout();
+    link.attr("d", path);
+  }
+
+});
+
+</script>

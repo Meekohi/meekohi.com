@@ -1,0 +1,15 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Serif|PT+Serif:b|PT+Serif:i|PT+Sans|PT+Sans:b);
+
+html {
+  min-width: 1040px;
+  font-family: "PT Sans", sans-serif;
+  margin:0;
+}
+body {
+  margin:0;
+}
+
+h3 {
+  color:#888;
+  font-weight: normal;
+}
