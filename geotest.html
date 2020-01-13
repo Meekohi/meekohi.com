@@ -1,0 +1,9 @@
+<html>
+<body>
+<script>
+navigator.geolocation.watchPosition(position => {
+  console.log(position.timestamp, position.coords.accuracy)
+})
+</script>
+</body>
+</html>
