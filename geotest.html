@@ -1,9 +1,12 @@
 <html>
 <body>
-<script>
-navigator.geolocation.watchPosition(position => {
-  console.log(position.timestamp, position.coords.accuracy)
-})
-</script>
+  <div id='a'></div>
+  <script>
+  navigator.geolocation.watchPosition(position => {
+    console.log(position.timestamp, position.coords.accuracy)
+    var div = document.getElementById('a');
+    div.innerHTML += position.timestamp + ', ' + position.coords.accuracy + '</br>';
+  })
+  </script>
 </body>
 </html>
