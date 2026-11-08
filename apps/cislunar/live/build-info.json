@@ -1,0 +1,7 @@
+{
+  "owner": "@cislunar/static-export",
+  "app": "live",
+  "builtAt": "2026-11-08T22:47:01.654Z",
+  "sourcePackage": "@cislunar/live-viz",
+  "base": "./"
+}

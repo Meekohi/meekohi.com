@@ -1,0 +1,7 @@
+{
+  "owner": "@cislunar/static-export",
+  "app": "catalog",
+  "builtAt": "2026-11-08T22:47:01.669Z",
+  "sourcePackage": "@cislunar/catalog-viz",
+  "base": "./"
+}
