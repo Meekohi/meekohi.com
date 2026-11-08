@@ -1,0 +1,4 @@
+# Deployment bundles include upstream shader strings and verbatim notices.
+# Keep their bytes intact and collapse generated files in GitHub reviews.
+apps/cislunar/live/** linguist-generated=true -whitespace
+apps/cislunar/catalog/** linguist-generated=true -whitespace
